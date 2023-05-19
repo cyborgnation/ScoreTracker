@@ -8,29 +8,26 @@
 import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
+    @State private var newPlayerName = ""
 
     var body: some View {
         VStack {
-            TextField("Player name", text: $newPlayerName)
-            Button("Add player") {
-                gameManager.addPlayer(name: newPlayerName)
-                newPlayerName = ""
+            HStack {
+                TextField("Enter player's name...", text: $newPlayerName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                Button("Add Player") {
+                    gameManager.addPlayer(name: newPlayerName)
+                    newPlayerName = ""
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
-            .disabled(newPlayerName.isEmpty || gameManager.players.count >= 8)
-            
+
             ScoreBoardView()
                 .environmentObject(gameManager)
-            
-            Button("Toggle sort order") {
-                gameManager.toggleSortOrder()
-            }
-            Button("Reset scores") {
-                gameManager.resetScores()
-            }
         }
-        .padding()
     }
-    
-    @State private var newPlayerName: String = ""
 }
-

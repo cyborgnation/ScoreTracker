@@ -10,47 +10,52 @@ struct ScoreBoardView: View {
     @EnvironmentObject var gameManager: GameManager
 
     var body: some View {
-        List {
+        VStack {
             ForEach(gameManager.sortedPlayers) { player in
                 HStack {
                     Text(player.name)
                     Spacer()
-                    Button(action: { self.gameManager.updateScore(id: player.id, by: -1) }) {
-                        Text("-")
-                            .font(.largeTitle)
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(Color.white)
-                            .background(Color.red)
-                            .clipShape(Circle())
-                    }
                     Text("\(player.score)")
-                    Button(action: { self.gameManager.updateScore(id: player.id, by: 1) }) {
-                        Text("+")
-                            .font(.largeTitle)
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(Color.white)
-                            .background(Color.green)
-                            .clipShape(Circle())
-                    }
+                    ScoreModifierView(playerId: player.id)
                 }
             }
+            Button("Reset Scores") {
+                gameManager.resetScores()
+            }
+            .padding()
+            .background(Color.red)
+            .foregroundColor(.white)
+            .cornerRadius(10)
         }
     }
 }
 
+
 struct ScoreModifierView: View {
-    let modifyScore: (Int) -> Void
-    let score: Int
+    @EnvironmentObject var gameManager: GameManager
+    let playerId: UUID
 
     var body: some View {
         HStack {
-            Button(action: { gameManager.updateScore(id: playerId, by: -1) }) {
+            Button(action: {
+                gameManager.updateScore(id: playerId, by: -1)
+            }) {
                 Text("-")
+                    .foregroundColor(.white)
+                    .frame(width: 30, height: 30)
+                    .background(Color.red)
+                    .clipShape(Circle())
             }
-            Text("\(score)")
-            Button(action: { gameManager.updateScore(id: playerId, by: 1) }) {
+            Button(action: {
+                gameManager.updateScore(id: playerId, by: 1)
+            }) {
                 Text("+")
+                    .foregroundColor(.white)
+                    .frame(width: 30, height: 30)
+                    .background(Color.green)
+                    .clipShape(Circle())
             }
         }
     }
 }
+
