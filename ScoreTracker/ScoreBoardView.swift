@@ -11,16 +11,16 @@ struct ScoreBoardView: View {
 
     var body: some View {
         List {
-            ForEach(gameManager.sortedPlayers.indices, id: \.self) { index in
-                let player = gameManager.sortedPlayers[index]
+            ForEach(gameManager.sortedPlayers) { player in
                 HStack {
                     Text(player.name)
                     Spacer()
-                    Button(action: { gameManager.updateScore(at: index, by: -1) }) {
+                    Button(action: { gameManager.updateScore(id: player.id, by: -1) }) {
                         Text("-")
                     }
                     Text("\(player.score)")
-                    Button(action: { gameManager.updateScore(at: index, by: 1) }) {
+                        .onReceive(player.$score) { _ in }
+                    Button(action: { gameManager.updateScore(id: player.id, by: 1) }) {
                         Text("+")
                     }
                 }
@@ -28,7 +28,6 @@ struct ScoreBoardView: View {
         }
     }
 }
-
 
 struct ScoreModifierView: View {
     let modifyScore: (Int) -> Void
