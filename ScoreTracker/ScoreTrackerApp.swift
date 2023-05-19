@@ -8,10 +8,13 @@
 import SwiftUI
 
 @main
-struct ScoreTrackerApp: App {
+struct ScorekeeperApp: App {
+    @StateObject var gameManager = GameManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameManager)
         }
     }
 }

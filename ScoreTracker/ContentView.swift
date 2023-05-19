@@ -6,21 +6,31 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
+    @EnvironmentObject var gameManager: GameManager
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            TextField("Player name", text: $newPlayerName)
+            Button("Add player") {
+                gameManager.addPlayer(name: newPlayerName)
+                newPlayerName = ""
+            }
+            .disabled(newPlayerName.isEmpty || gameManager.players.count >= 8)
+            
+            ScoreBoardView()
+                .environmentObject(gameManager)
+            
+            Button("Toggle sort order") {
+                gameManager.toggleSortOrder()
+            }
+            Button("Reset scores") {
+                gameManager.resetScores()
+            }
         }
         .padding()
     }
+    
+    @State private var newPlayerName: String = ""
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

@@ -14,6 +14,10 @@
 		0B58D3242A17D145009244D9 /* ScoreTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D3232A17D145009244D9 /* ScoreTrackerTests.swift */; };
 		0B58D32E2A17D145009244D9 /* ScoreTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D32D2A17D145009244D9 /* ScoreTrackerUITests.swift */; };
 		0B58D3302A17D145009244D9 /* ScoreTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D32F2A17D145009244D9 /* ScoreTrackerUITestsLaunchTests.swift */; };
+		0B58D33D2A17D171009244D9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D33C2A17D171009244D9 /* Player.swift */; };
+		0B58D33F2A17D18F009244D9 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D33E2A17D18F009244D9 /* GameManager.swift */; };
+		0B58D3412A17D1BE009244D9 /* AddPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D3402A17D1BE009244D9 /* AddPlayerView.swift */; };
+		0B58D3432A17D1E3009244D9 /* ScoreBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B58D3422A17D1E3009244D9 /* ScoreBoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		0B58D3292A17D145009244D9 /* ScoreTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B58D32D2A17D145009244D9 /* ScoreTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTrackerUITests.swift; sourceTree = "<group>"; };
 		0B58D32F2A17D145009244D9 /* ScoreTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0B58D33C2A17D171009244D9 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		0B58D33E2A17D18F009244D9 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		0B58D3402A17D1BE009244D9 /* AddPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerView.swift; sourceTree = "<group>"; };
+		0B58D3422A17D1E3009244D9 /* ScoreBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,10 @@
 				0B58D3142A17D143009244D9 /* ContentView.swift */,
 				0B58D3162A17D145009244D9 /* Assets.xcassets */,
 				0B58D3182A17D145009244D9 /* Preview Content */,
+				0B58D33C2A17D171009244D9 /* Player.swift */,
+				0B58D33E2A17D18F009244D9 /* GameManager.swift */,
+				0B58D3402A17D1BE009244D9 /* AddPlayerView.swift */,
+				0B58D3422A17D1E3009244D9 /* ScoreBoardView.swift */,
 			);
 			path = ScoreTracker;
 			sourceTree = "<group>";
@@ -257,7 +269,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B58D3412A17D1BE009244D9 /* AddPlayerView.swift in Sources */,
 				0B58D3152A17D143009244D9 /* ContentView.swift in Sources */,
+				0B58D3432A17D1E3009244D9 /* ScoreBoardView.swift in Sources */,
+				0B58D33F2A17D18F009244D9 /* GameManager.swift in Sources */,
+				0B58D33D2A17D171009244D9 /* Player.swift in Sources */,
 				0B58D3132A17D143009244D9 /* ScoreTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
