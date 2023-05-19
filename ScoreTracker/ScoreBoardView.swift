@@ -15,13 +15,22 @@ struct ScoreBoardView: View {
                 HStack {
                     Text(player.name)
                     Spacer()
-                    Button(action: { gameManager.updateScore(id: player.id, by: -1) }) {
+                    Button(action: { self.gameManager.updateScore(id: player.id, by: -1) }) {
                         Text("-")
+                            .font(.largeTitle)
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color.white)
+                            .background(Color.red)
+                            .clipShape(Circle())
                     }
                     Text("\(player.score)")
-                        .onReceive(player.$score) { _ in }
-                    Button(action: { gameManager.updateScore(id: player.id, by: 1) }) {
+                    Button(action: { self.gameManager.updateScore(id: player.id, by: 1) }) {
                         Text("+")
+                            .font(.largeTitle)
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(Color.white)
+                            .background(Color.green)
+                            .clipShape(Circle())
                     }
                 }
             }

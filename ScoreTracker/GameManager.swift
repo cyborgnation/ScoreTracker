@@ -6,9 +6,9 @@
 //
 import SwiftUI
 import Combine
-
 class GameManager: ObservableObject {
     @Published var players: [Player] = []
+    
     var sortedPlayers: [Player] {
         return players.sorted {
             return self.sortAscending ? $0.score < $1.score : $0.score > $1.score
@@ -26,10 +26,11 @@ class GameManager: ObservableObject {
         // Find the index of the player with the given ID
         if let index = players.firstIndex(where: { $0.id == id }) {
             // Update the player's score
-            players[index].score += score
-            
+            var player = players[index]
+            player.score += score
+            print(players)  // Check Players
             // Recreate the players array to force SwiftUI to redraw the views
-            players = players.map { $0 }
+            players[index] = player
         }
     }
     
@@ -46,10 +47,3 @@ class GameManager: ObservableObject {
         sortAscending.toggle()
     }
 }
-
-
-
-
-
-
-
