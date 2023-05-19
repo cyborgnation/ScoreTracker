@@ -7,8 +7,20 @@
 import SwiftUI
 import Combine
 class GameManager: ObservableObject {
-    @Published var players: [Player] = []
-    
+    @Published var players: [Player] = [] {
+        didSet {
+            cancellables.forEach { $0.cancel() }
+            cancellables = []
+            for player in players {
+                let cancellable = player.$score.sink { [weak self] _ in
+                    self?.objectWillChange.send()
+                }
+                cancellables.append(cancellable)
+            }
+        }
+    }
+    private var cancellables: [AnyCancellable] = []
+
     var sortedPlayers: [Player] {
         return players.sorted {
             return self.sortAscending ? $0.score < $1.score : $0.score > $1.score
@@ -23,27 +35,19 @@ class GameManager: ObservableObject {
     }
     
     func updateScore(id: UUID, by score: Int) {
-        // Find the index of the player with the given ID
-        if let index = players.firstIndex(where: { $0.id == id }) {
-            // Update the player's score
-            var player = players[index]
+        if let player = players.first(where: { $0.id == id }) {
             player.score += score
-            print(players)  // Check Players
-            // Recreate the players array to force SwiftUI to redraw the views
-            players[index] = player
         }
     }
     
     func resetScores(to score: Int = 0) {
-        // Reset scores and recreate the players array to force SwiftUI to redraw the views
-        players = players.map { player in
-            var player = player
-            player.score = score
-            return player
-        }
+        players.forEach { $0.score = score }
     }
     
     func toggleSortOrder() {
         sortAscending.toggle()
     }
 }
+
+
+

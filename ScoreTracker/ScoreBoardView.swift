@@ -44,11 +44,11 @@ struct ScoreModifierView: View {
 
     var body: some View {
         HStack {
-            Button(action: { modifyScore(-1) }) {
+            Button(action: { gameManager.updateScore(id: playerId, by: -1) }) {
                 Text("-")
             }
             Text("\(score)")
-            Button(action: { modifyScore(1) }) {
+            Button(action: { gameManager.updateScore(id: playerId, by: 1) }) {
                 Text("+")
             }
         }

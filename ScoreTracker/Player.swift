@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Player: Identifiable {
+class Player: ObservableObject, Identifiable {
     let id: UUID
     let name: String
-    var score: Int
-    
-    init(name: String, score: Int) {
+    @Published var score: Int
+
+    init(name: String, score: Int = 0) {
         self.id = UUID()
         self.name = name
         self.score = score
