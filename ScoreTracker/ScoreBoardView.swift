@@ -6,66 +6,34 @@
 //
 
 import SwiftUI
+
 struct ScoreBoardView: View {
     @EnvironmentObject var gameManager: GameManager
     let colors: [Color] = [.red, .green, .blue, .yellow, .pink, .purple, .orange, .gray]
-
+    
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(gameManager.players) { player in
-                    let index = gameManager.players.firstIndex(where: { $0.id == player.id }) ?? 0
+                ForEach(gameManager.players, id: \.self.id) { player in
                     HStack {
                         Text(player.name)
                         Spacer()
+                        Button(action: {
+                            gameManager.changeScore(for: player.id, by: 1)
+                        }) {
+                            Image(systemName: "plus")
+                        }
                         Text("\(player.score)")
+                        Button(action: {
+                            gameManager.changeScore(for: player.id, by: -1)
+                        }) {
+                            Image(systemName: "minus")
+                        }
                     }
                     .padding()
-                    .background(colors[index % colors.count])
+                    .background(colors[abs(player.id.hashValue) % colors.count])
                     .foregroundColor(.black)
                 }
-            }
-        }
-            Button("Reset Scores") {
-                gameManager.resetScores()
-            }
-            .padding()
-            .background(Color.red)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-        }
-
-    func getColorForIndex(_ index: Int) -> Color {
-        let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .indigo, .purple]
-        return colors[index % colors.count]
-    }
-}
-
-
-
-struct ScoreModifierView: View {
-    @EnvironmentObject var gameManager: GameManager
-    let playerId: UUID
-
-    var body: some View {
-        HStack {
-            Button(action: {
-                gameManager.updateScore(id: playerId, by: -1)
-            }) {
-                Image(systemName: "minus")
-                    .foregroundColor(.black)
-                    .frame(width: 30, height: 30)
-                    .background(Color.red)
-                    .clipShape(Circle())
-            }
-            Button(action: {
-                gameManager.updateScore(id: playerId, by: 1)
-            }) {
-                Image(systemName: "plus")
-                    .foregroundColor(.black)
-                    .frame(width: 30, height: 30)
-                    .background(Color.green)
-                    .clipShape(Circle())
             }
         }
     }
