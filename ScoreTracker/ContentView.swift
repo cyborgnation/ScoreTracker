@@ -9,6 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
     @State private var newPlayerName = ""
+    
 
     var body: some View {
         VStack {
@@ -29,5 +30,7 @@ struct ContentView: View {
             ScoreBoardView()
                 .environmentObject(gameManager)
         }
+        .background(Color.black) // <- Add this line here
+        .edgesIgnoringSafeArea(.all) // <- This line makes the color fill the entire screen area
     }
 }

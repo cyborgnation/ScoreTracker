@@ -11,9 +11,12 @@ struct ScoreBoardView: View {
 
     var body: some View {
         VStack {
-            ForEach(gameManager.sortedPlayers) { player in
+            ForEach(gameManager.sortedPlayers.indices, id: \.self) { index in
+                let player = gameManager.sortedPlayers[index]
                 HStack {
                     Text(player.name)
+                        .foregroundColor(getColorForIndex(index))
+                        .font(.custom("Futura", size: 24))
                     Spacer()
                     Text("\(player.score)")
                     ScoreModifierView(playerId: player.id)
@@ -28,7 +31,13 @@ struct ScoreBoardView: View {
             .cornerRadius(10)
         }
     }
+
+    func getColorForIndex(_ index: Int) -> Color {
+        let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .indigo, .purple]
+        return colors[index % colors.count]
+    }
 }
+
 
 
 struct ScoreModifierView: View {
@@ -40,8 +49,8 @@ struct ScoreModifierView: View {
             Button(action: {
                 gameManager.updateScore(id: playerId, by: -1)
             }) {
-                Text("-")
-                    .foregroundColor(.white)
+                Image(systemName: "minus")
+                    .foregroundColor(.black)
                     .frame(width: 30, height: 30)
                     .background(Color.red)
                     .clipShape(Circle())
@@ -49,8 +58,8 @@ struct ScoreModifierView: View {
             Button(action: {
                 gameManager.updateScore(id: playerId, by: 1)
             }) {
-                Text("+")
-                    .foregroundColor(.white)
+                Image(systemName: "plus")
+                    .foregroundColor(.black)
                     .frame(width: 30, height: 30)
                     .background(Color.green)
                     .clipShape(Circle())
