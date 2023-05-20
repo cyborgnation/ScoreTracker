@@ -10,6 +10,10 @@ struct ContentView: View {
     @EnvironmentObject var gameManager: GameManager
     @State private var newPlayerName = ""
     
+    init() {
+        // This line will set the background color of the NavigationView to black
+        UINavigationBar.appearance().backgroundColor = .black
+    }
     
     var body: some View {
         ZStack {
@@ -36,6 +40,7 @@ struct ContentView: View {
                 }
                 .padding(.top)
                 .navigationTitle("Score Keeper")
+                .navigationBarTitleDisplayMode(.inline)
             }
             .background(Color.clear)
         }

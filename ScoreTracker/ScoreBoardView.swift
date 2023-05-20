@@ -8,20 +8,24 @@
 import SwiftUI
 struct ScoreBoardView: View {
     @EnvironmentObject var gameManager: GameManager
+    let colors: [Color] = [.red, .green, .blue, .yellow, .pink, .purple, .orange, .gray]
 
     var body: some View {
-        VStack {
-            ForEach(gameManager.sortedPlayers.indices, id: \.self) { index in
-                let player = gameManager.sortedPlayers[index]
-                HStack {
-                    Text(player.name)
-                        .foregroundColor(getColorForIndex(index))
-                        .font(.custom("Futura", size: 24))
-                    Spacer()
-                    Text("\(player.score)")
-                    ScoreModifierView(playerId: player.id)
+        ScrollView {
+            VStack {
+                ForEach(gameManager.players) { player in
+                    let index = gameManager.players.firstIndex(where: { $0.id == player.id }) ?? 0
+                    HStack {
+                        Text(player.name)
+                        Spacer()
+                        Text("\(player.score)")
+                    }
+                    .padding()
+                    .background(colors[index % colors.count])
+                    .foregroundColor(.black)
                 }
             }
+        }
             Button("Reset Scores") {
                 gameManager.resetScores()
             }
@@ -30,7 +34,6 @@ struct ScoreBoardView: View {
             .foregroundColor(.white)
             .cornerRadius(10)
         }
-    }
 
     func getColorForIndex(_ index: Int) -> Color {
         let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .indigo, .purple]

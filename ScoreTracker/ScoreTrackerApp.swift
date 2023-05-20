@@ -14,7 +14,9 @@ struct ScorekeeperApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.colorScheme, .dark)
                 .environmentObject(gameManager)
+            
         }
     }
 }
