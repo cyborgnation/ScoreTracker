@@ -12,27 +12,35 @@ struct ScoreBoardView: View {
     let colors: [Color] = [.red, .green, .blue, .yellow, .pink, .purple, .orange, .gray]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(Array(gameManager.players.enumerated()), id: \.element.id) { index, player in
-                    HStack {
-                        Text(player.name)
-                        Spacer()
-                        Button(action: {
-                            gameManager.players[index].score += 1
-                        }) {
-                            Image(systemName: "plus")
+        VStack {
+            Button(action: {
+                gameManager.toggleSortingOrder()
+            }) {
+                Text("Toggle Sorting Order")
+            }
+            .padding()
+            ScrollView {
+                VStack {
+                    ForEach(Array(gameManager.players.enumerated()), id: \.element.id) { index, player in
+                        HStack {
+                            Text(player.name)
+                            Spacer()
+                            Button(action: {
+                                gameManager.players[index].score += 1
+                            }) {
+                                Image(systemName: "plus")
+                            }
+                            Text("\(player.score)")
+                            Button(action: {
+                                gameManager.players[index].score -= 1
+                            }) {
+                                Image(systemName: "minus")
+                            }
                         }
-                        Text("\(player.score)")
-                        Button(action: {
-                            gameManager.players[index].score -= 1
-                        }) {
-                            Image(systemName: "minus")
-                        }
+                        .padding()
+                        .background(colors[abs(player.id.hashValue) % colors.count])
+                        .foregroundColor(.black)
                     }
-                    .padding()
-                    .background(colors[abs(player.id.hashValue) % colors.count])
-                    .foregroundColor(.black)
                 }
             }
         }

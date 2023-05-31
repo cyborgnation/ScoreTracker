@@ -19,11 +19,15 @@ class GameManager: ObservableObject {
             }
         }
     }
+    @Published var sortingOrder: SortingOrder = .descending
     private var cancellables: [AnyCancellable] = []
 
     var sortedPlayers: [Player] {
-        return players.sorted {
-            return self.sortAscending ? $0.score < $1.score : $0.score > $1.score
+        switch sortingOrder {
+        case .ascending:
+            return players.sorted { $0.score < $1.score }
+        case .descending:
+            return players.sorted { $0.score > $1.score }
         }
     }
     
@@ -44,8 +48,17 @@ class GameManager: ObservableObject {
         players.forEach { $0.score = score }
     }
     
-    func toggleSortOrder() {
-        sortAscending.toggle()
+    enum SortingOrder {
+        case ascending
+        case descending
+    }
+    
+    func toggleSortingOrder() {
+        if sortingOrder == .ascending {
+            sortingOrder = .descending
+        } else {
+            sortingOrder = .ascending
+        }
     }
 }
 
