@@ -14,18 +14,18 @@ struct ScoreBoardView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(gameManager.players, id: \.self.id) { player in
+                ForEach(Array(gameManager.players.enumerated()), id: \.element.id) { index, player in
                     HStack {
                         Text(player.name)
                         Spacer()
                         Button(action: {
-                            gameManager.changeScore(for: player.id, by: 1)
+                            gameManager.players[index].score += 1
                         }) {
                             Image(systemName: "plus")
                         }
                         Text("\(player.score)")
                         Button(action: {
-                            gameManager.changeScore(for: player.id, by: -1)
+                            gameManager.players[index].score -= 1
                         }) {
                             Image(systemName: "minus")
                         }
