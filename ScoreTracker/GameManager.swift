@@ -21,16 +21,28 @@ class GameManager: ObservableObject {
     }
     @Published var sortingOrder: SortingOrder = .descending
     private var cancellables: [AnyCancellable] = []
+    var subscriptions = Set<AnyCancellable>()
 
-    var sortedPlayers: [Player] {
-        switch sortingOrder {
-        case .ascending:
-            return players.sorted { $0.score < $1.score }
-        case .descending:
-            return players.sorted { $0.score > $1.score }
-        }
-    }
-    
+     init() {
+         // Create a timer that starts when a player's score changes and triggers sorting when it expires.
+         players.forEach { player in
+             player.scoreWillChange
+                 .debounce(for: .seconds(2), scheduler: RunLoop.main)
+                 .sink { [weak self] in
+                     self?.objectWillChange.send()
+                 }
+                 .store(in: &subscriptions)
+         }
+     }
+
+     var sortedPlayers: [Player] {
+         switch sortingOrder {
+         case .ascending:
+             return players.sorted { $0.score < $1.score }
+         case .descending:
+             return players.sorted { $0.score > $1.score }
+         }
+     }
     var sortAscending: Bool = false
     
     func addPlayer(name: String) {

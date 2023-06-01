@@ -21,7 +21,7 @@ struct ScoreBoardView: View {
             .padding()
             ScrollView {
                 VStack {
-                    ForEach(Array(gameManager.players.enumerated()), id: \.element.id) { index, player in
+                    ForEach(Array(gameManager.sortedPlayers.enumerated()), id: \.element.id) { index, player in
                         HStack {
                             Text(player.name)
                             Spacer()
